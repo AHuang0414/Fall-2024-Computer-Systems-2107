@@ -19,11 +19,12 @@ Write a C program called paycheck to calculate the paycheck for a Temple employe
 int main() {
     int ID;
     
+    
     printf("Please enter TUID: ");
     scanf("%d", &ID);
     printf("Worker ID: %d", ID);
     
-        
+
     return 0;
 }
 
