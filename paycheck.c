@@ -15,3 +15,12 @@ Write a C program called paycheck to calculate the paycheck for a Temple employe
 #include <stdio.h>
 #include <stdlib.h>
 
+int main() {
+    int ID;
+    
+    printf("Worker ID: ");
+    scanf("%d", &ID);
+    printf("ID: %d", ID);
+    
+    return 0;
+}
