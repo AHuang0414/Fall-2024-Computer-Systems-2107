@@ -10,8 +10,8 @@ Lab 3 ATM Machine
 Write a C program for a ATM Machine by implementing functions (for the menu), such as requiring a PIN and different types of transactions.
 
 1. Balence - show balence
-2. Cash withdrawl - withdrawl money, subtract from balence, +1 to transaction, can only withdrawl in $20s (20, 40 60, etc.)
-3. Cash deposit - deposit money, add to balence, +1 to transaction, can only add whole dollar bills (1, 5, 10, 20, etc.)
+2. Cash withdrawl - withdrawl money, subtract from balence, +1 to transaction, can only withdrawl in $20s (20, 40 60, etc.), limit $1,000
+3. Cash deposit - deposit money, add to balence, +1 to transaction, can only add whole dollar bills (1, 5, 10, 20, etc.), limit $10,000
 4. Quit - exit program
 */
 
@@ -21,11 +21,11 @@ Write a C program for a ATM Machine by implementing functions (for the menu), su
 #include <stdbool.h>
 
 
-void showBalence(int currentBalence) {
-    printf("\nCurrent balence: $%d\n", currentBalence);
+void showBalence(int *currentBalence) { 
+    printf("\nCurrent balence: $%d\n", *currentBalence);
 }
 
-int showCashWithdrawl(int currentBalence) {
+void showCashWithdrawl(int *currentBalence, int *transactions) { 
     int withdrawlAmount;
     int wantReceipt;
     printf("How much would you like to withdrawl? Please enter in bills of $20s. i.e. 20, 40, 60, etc. : ");
@@ -33,28 +33,34 @@ int showCashWithdrawl(int currentBalence) {
 
     // printf("\n(before) withCashWithdrawl balence: %d", currentBalence);
 
-    currentBalence = currentBalence - withdrawlAmount;
+    *currentBalence -= withdrawlAmount;
+    *transactions += 1;
 
     // printf("\n(after) withCashWithdrawl balence: %d", currentBalence);
 
 
     printf("\nWould you like a receipt? Press 1 for 'Yes' and 2 for 'No': ");
     scanf("%d", &wantReceipt);
-
     if (wantReceipt == 1) printf("Receipt printing...\n");
-    
-    return currentBalence;
 }
 
-int showCashDeposit(int currentBalence) {
+void showCashDeposit(int *currentBalence, int *transactions) {
     int depositAmount = 0;
+    int wantReceipt = 0;
     printf("How much would you like to deposit? Please enter in whole doller bills $. i.e 1, 5, 10, 20. No coins.");
+    scanf("%d", &depositAmount);
 
-    return 0;
+    *currentBalence += depositAmount;
+    *transactions += 1;
+
+    printf("\nWould you like a receipt? Press 1 for 'Yes' and 2 for 'No': ");
+    scanf("%d", &wantReceipt);
+    if (wantReceipt == 1) printf("Receipt printing...\n");
 }
 
-int finish(int finalBalence, int totalTransactions) {
-    printf("\nToday you made [%d] total transactions.", totalTransactions);
+void finish(int *finalBalence, int *totalTransactions) {
+    printf("\nYour final balence is: $%d", *finalBalence);
+    printf("\nToday you made [%d] total transactions.", *totalTransactions);
     printf("\nThank you for using \"Temple\" ATM Machine!");
     exit(0);
 }
@@ -63,7 +69,7 @@ int finish(int finalBalence, int totalTransactions) {
 int main() {
     int PIN = 3014, inputPIN;
     int totalTransactions = 0;
-    int balence = 5000;
+    int balence = 5000, dailyWithdrawlLimit = 1000, dailyDepositLimit = 10000;
 
     printf("Welcome to \"Temple\" ATM Machine!\n");
     printf("\n\tPlease enter your PIN number: ");
@@ -95,33 +101,52 @@ int main() {
             printf("\nEnter here: ");
             scanf("%d", &menuOption);
         }
-        
-        if (menuOption > 0 && menuOption <= 4) {
-            if (menuOption == 1) {
-                showBalence(balence);
-                menuOption = 0;
-            }
-            else if (menuOption == 2)
-            {
-                balence = showCashWithdrawl(balence);
-                totalTransactions += 1;
-                menuOption = 0;
-            }
-            else if (menuOption == 3)
-            {
-                balence = showCashDeposit(balence);
-                totalTransactions += 1;
-                menuOption = 0;
-            }
-            else if (menuOption == 4)
-            {
-                finish(balence, totalTransactions);
-            }
-        }
-        else {
+
+        switch (menuOption)
+        {
+        case 1:
+            showBalence(&balence);
+            break;
+        case 2:
+            showCashWithdrawl(&balence, &totalTransactions);
+            break;
+        case 3:
+            showCashDeposit(&balence, &totalTransactions);
+            break;
+        case 4:
+            finish(&balence, &totalTransactions);
+        default:
             printf("Invalid menu option, please try again: ");
-            menuOption = 0;
+            break;
         }
+        menuOption = 0;
+        
+        // if (menuOption > 0 && menuOption <= 4) {
+        //     if (menuOption == 1) {
+        //         showBalence(&balence);
+        //         menuOption = 0;
+        //     }
+        //     else if (menuOption == 2)
+        //     {
+        //         showCashWithdrawl(&balence);
+        //         totalTransactions += 1;
+        //         menuOption = 0;
+        //     }
+        //     else if (menuOption == 3)
+        //     {
+        //         balence = showCashDeposit(balence);
+        //         totalTransactions += 1;
+        //         menuOption = 0;
+        //     }
+        //     else if (menuOption == 4)
+        //     {
+        //         finish(balence, totalTransactions);
+        //     }
+        // }
+        // else {
+        //     printf("Invalid menu option, please try again: ");
+        //     menuOption = 0;
+        // }
 
     }
 
