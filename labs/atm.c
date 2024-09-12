@@ -22,46 +22,61 @@ Write a C program for a ATM Machine by implementing functions (for the menu), su
 
 
 void showBalence(int *currentBalence) { 
-    printf("\nCurrent balence: $%d\n", *currentBalence);
+    printf("\n> Current Balence: $%d\n", *currentBalence);
 }
 
-void showCashWithdrawl(int *currentBalence, int *transactions) { 
-    int withdrawlAmount;
+void showCashWithdrawl(int *currentBalence, int *transactions, int *dailyLimit) { 
+    unsigned int withdrawlAmount;
     int wantReceipt;
-    printf("How much would you like to withdrawl? Please enter in bills of $20s. i.e. 20, 40, 60, etc. : ");
+    puts("--------------------------");
+    printf("%s","How much would you like to withdrawl? Please enter in bills of $20s. i.e. 20, 40, 60, etc. : ");
     scanf("%d", &withdrawlAmount);
 
     // printf("\n(before) withCashWithdrawl balence: %d", currentBalence);
 
-    *currentBalence -= withdrawlAmount;
-    *transactions += 1;
+    if (*dailyLimit >= withdrawlAmount && (withdrawlAmount % 20) == 0) {
+        *currentBalence -= withdrawlAmount;
+        *dailyLimit -= withdrawlAmount;
+        *transactions += 1;
+        puts("> Withdrawl Successful");
+
+        printf("%s","\nWould you like a receipt? Press 1 for 'Yes' and 2 for 'No': ");
+        scanf("%d", &wantReceipt);
+        if (wantReceipt == 1) puts("> Receipt printing...");
+    }
+    else {
+        puts("> Invalid input, please try again later");
+    }
+    
+    printf("> Daily Withdrawl Left: $%d\n", *dailyLimit);
+    puts("--------------------------");
 
     // printf("\n(after) withCashWithdrawl balence: %d", currentBalence);
 
-
-    printf("\nWould you like a receipt? Press 1 for 'Yes' and 2 for 'No': ");
-    scanf("%d", &wantReceipt);
-    if (wantReceipt == 1) printf("Receipt printing...\n");
 }
 
-void showCashDeposit(int *currentBalence, int *transactions) {
+void showCashDeposit(int *currentBalence, int *transactions, int *dailyLimit) {
     int depositAmount = 0;
     int wantReceipt = 0;
-    printf("How much would you like to deposit? Please enter in whole doller bills $. i.e 1, 5, 10, 20. No coins.");
+    puts("--------------------------");
+    printf("%s","How much would you like to deposit? Please enter in whole doller bills $. i.e 1, 5, 10, 20. : ");
     scanf("%d", &depositAmount);
 
     *currentBalence += depositAmount;
     *transactions += 1;
 
+    puts("> Deposit Successful");
+
     printf("\nWould you like a receipt? Press 1 for 'Yes' and 2 for 'No': ");
     scanf("%d", &wantReceipt);
-    if (wantReceipt == 1) printf("Receipt printing...\n");
+    if (wantReceipt == 1) printf("> Receipt printing...\n");
+    puts("--------------------------");
 }
 
 void finish(int *finalBalence, int *totalTransactions) {
     printf("\nYour final balence is: $%d", *finalBalence);
     printf("\nToday you made [%d] total transactions.", *totalTransactions);
-    printf("\nThank you for using \"Temple\" ATM Machine!");
+    printf("%s","\nThank you for using \"Temple\" ATM Machine!");
     exit(0);
 }
 
@@ -71,7 +86,7 @@ int main() {
     int totalTransactions = 0;
     int balence = 5000, dailyWithdrawlLimit = 1000, dailyDepositLimit = 10000;
 
-    printf("Welcome to \"Temple\" ATM Machine!\n");
+    printf("%s","Welcome to \"Temple\" ATM Machine!\n");
     printf("\n\tPlease enter your PIN number: ");
 
     for (int attempts = 3; attempts > 0; attempts--) {
@@ -90,15 +105,16 @@ int main() {
 
     int menuOption = 0;
 
-    printf("\nWelcome Nana! Please enter number 1 through 4 to select menu options: ");
+    puts("\nWelcome Nana! Please enter number 1 through 4 to select menu options: ");
     while (true) {
 
         if (menuOption == 0) {
-            printf("\n\t 1. Balence");
-            printf("\n\t 2. Cash withdrawl");
-            printf("\n\t 3. Cash deposition");
-            printf("\n\t 4. Quit");
-            printf("\nEnter here: ");
+            puts("\nATM Menu:");
+            printf("%s","1. Balence");
+            printf("%s","\n2. Cash withdrawl");
+            printf("%s","\n3. Cash deposition");
+            printf("%s","\n4. Quit");
+            printf("%s","\nEnter here: ");
             scanf("%d", &menuOption);
         }
 
@@ -108,15 +124,15 @@ int main() {
             showBalence(&balence);
             break;
         case 2:
-            showCashWithdrawl(&balence, &totalTransactions);
+            showCashWithdrawl(&balence, &totalTransactions, &dailyWithdrawlLimit);
             break;
         case 3:
-            showCashDeposit(&balence, &totalTransactions);
+            showCashDeposit(&balence, &totalTransactions, &dailyDepositLimit);
             break;
         case 4:
             finish(&balence, &totalTransactions);
         default:
-            printf("Invalid menu option, please try again: ");
+            puts("\n> Invalid menu option, please try again: ");
             break;
         }
         menuOption = 0;
