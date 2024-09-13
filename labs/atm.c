@@ -32,20 +32,30 @@ void showCashWithdrawl(int *currentBalence, int *transactions, int *dailyLimit) 
     printf("%s","How much would you like to withdrawl? Please enter in bills of $20s. i.e. 20, 40, 60, etc. : ");
     scanf("%d", &withdrawlAmount);
 
-    // printf("\n(before) withCashWithdrawl balence: %d", currentBalence);
+    int counter = 3;
+    while (counter > 0) {
+        if (withdrawlAmount > *dailyLimit || withdrawlAmount %20 != 0 || withdrawlAmount <= 0) {
+            counter -= 1;
+            printf("Invalid input, try again. [%d] tries left: ", counter);
+            if (counter == 0) {
+                puts("\nError Occured: Invalid money validation, too many attempts!");
+                exit(0);
+            }   
+            scanf("%d", &withdrawlAmount);
+        }
+        else {
+            break;
+        }
+    }
 
     if (*dailyLimit >= withdrawlAmount && (withdrawlAmount % 20) == 0) {
         *currentBalence -= withdrawlAmount;
         *dailyLimit -= withdrawlAmount;
         *transactions += 1;
         puts("> Withdrawl Successful");
-
-        printf("%s","\nWould you like a receipt? Press 1 for 'Yes' and 2 for 'No': ");
+        printf("\nWould you like a receipt? Press 1 for 'Yes' and 2 for 'No': ");
         scanf("%d", &wantReceipt);
-        if (wantReceipt == 1) puts("> Receipt printing...");
-    }
-    else {
-        puts("> Invalid input, please try again later");
+        if (wantReceipt == 1) printf("> Receipt printing...\n");
     }
     
     printf("> Daily Withdrawl Left: $%d\n", *dailyLimit);
@@ -56,26 +66,52 @@ void showCashWithdrawl(int *currentBalence, int *transactions, int *dailyLimit) 
 }
 
 void showCashDeposit(int *currentBalence, int *transactions, int *dailyLimit) {
-    int depositAmount = 0;
+    unsigned int depositAmount = 0;
     int wantReceipt = 0;
     puts("--------------------------");
     printf("%s","How much would you like to deposit? Please enter in whole doller bills $. i.e 1, 5, 10, 20. : ");
     scanf("%d", &depositAmount);
 
-    *currentBalence += depositAmount;
-    *transactions += 1;
+    int counter = 3;
+    while (counter > 0) {
+        if (depositAmount > *dailyLimit || depositAmount <= 0) {
+            counter -= 1;
+            printf("Invalid input, try again. [%d] tries left: ", counter);
+            if (counter == 0) {
+                puts("\nError Occured: Invalid money validation, too many attempts!");
+                exit(0);
+            }   
+            scanf("%d", &depositAmount);
+        }
+        else {
+            break;
+        }
+    }
 
-    puts("> Deposit Successful");
+    if (*dailyLimit >= depositAmount) {
+        *currentBalence += depositAmount;
+        *dailyLimit -= depositAmount;
+        *transactions += 1;
+        puts("> Deposit Successful");   
+        printf("\nWould you like a receipt? Press 1 for 'Yes' and 2 for 'No': ");
+        scanf("%d", &wantReceipt);
+        if (wantReceipt == 1) printf("> Receipt printing...\n");
+    }
 
-    printf("\nWould you like a receipt? Press 1 for 'Yes' and 2 for 'No': ");
-    scanf("%d", &wantReceipt);
-    if (wantReceipt == 1) printf("> Receipt printing...\n");
+    printf("> Daily Deposit Left: $%d\n", *dailyLimit);
     puts("--------------------------");
 }
 
 void finish(int *finalBalence, int *totalTransactions) {
-    printf("\nYour final balence is: $%d", *finalBalence);
-    printf("\nToday you made [%d] total transactions.", *totalTransactions);
+    int wantReceipt;    
+    printf("\nWould you like a receipt? Press 1 for 'Yes' and 2 for 'No': ");
+    scanf("%d", &wantReceipt);
+    if (wantReceipt == 1) {
+        printf("> Receipt printing...\n");
+        printf("\nYour final balence is: $%d", *finalBalence);
+        printf("\nToday you made [%d] total transactions.\n", *totalTransactions);
+    } 
+
     printf("%s","\nThank you for using \"Temple\" ATM Machine!");
     exit(0);
 }
@@ -132,7 +168,7 @@ int main() {
         case 4:
             finish(&balence, &totalTransactions);
         default:
-            puts("\n> Invalid menu option, please try again: ");
+            puts("\n> Invalid menu option, please try again!");
             break;
         }
         menuOption = 0;
