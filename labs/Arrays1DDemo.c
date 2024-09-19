@@ -52,3 +52,7 @@ void fillArray(int array[], int size) {
 
 }
 
+void findWithRange(int array[]) {
+
+}
+
