@@ -25,7 +25,7 @@ void average(int students, int exams, int grades[students][exams]);
 
 int main()
 {
-    size_t students, exams;
+    unsigned int students, exams;
 
     printf("%s", "Enter the number of students: ");
     scanf("%u", &students);
@@ -39,23 +39,47 @@ int main()
     {
         for (size_t j = 0; j < exams; j++)
         {
-            printf("Enter the grade for student %d, exam %d: ", i + 1, j + 1);
+            printf("Enter grade for student [%d], exam [%d]: ", i + 1, j + 1);
             scanf("%d", &grades[i][j]);
         }
     }
 
+    for (size_t i = 0; i < students; i++) {
+        for (size_t j = 0; j < exams; j++) {
+            printf("%u ", grades[i][j]);
+        }
+        puts("");
+    }
+
     void (*processGrades[4])(int, int, int[][exams]) = {printArray, minimum, maximum, average};
 
-    unsigned int choice = 0;
+    int choice = 0;
 
-    while (choice >= 0 && choice < 3)
+    while (choice > -1) {
+        puts("Enter number (0 - 3) for the following options and -1 to quit: ");
+        scanf("%u", &choice);
+        switch (choice) {
+            case 0:
+                puts("\t0. Print the array of grades (printArray)");
+                break;
+            case 1:
+                puts("\t1. Find the minimum grade (minimum)");
+                break;
+            case 2:
+                puts("\t2. Find the maximum grade (maximum)");
+                break;
+            case 3:
+                puts("\t3. Print the average on all tests for each student (average)");
+                break;
+            case -1:
+                puts("\t-1. End Program");
+                exit(0);
+            default:
+                puts("Please enter a valid number (0 - 3)");
+                break;
+        }
+    }
 
-    puts("Enter number (0 - 3) for the following options: ");
-    puts("\t0. Print the array of grades (printArray)");
-    puts("\t1. Find the minimum grade (minimum)");
-    puts("\t2. Find the maximum grade (maximum)");
-    puts("\t3. Print the average on all tests for each student (average)");
-    puts("\t4. End Program");
 
 
     return 0;
