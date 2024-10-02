@@ -55,27 +55,35 @@ int main()
 
     int choice = 0;
 
-    while (choice > -1) {
-        puts("Enter number (0 - 3) for the following options and -1 to quit: ");
+    while (choice != 4) {
+        puts("Enter number (0 - 3) for the following options and 4 to quit: ");
+        puts("\t0. Print the array of grades (printArray)");
+        puts("\t1. Find the minimum grade (minimum)");
+        puts("\t2. Find the maximum grade (maximum)");
+        puts("\t3. Print the average on all tests for each student (average)");
+        puts("\t4. End Program");
+        printf("Enter here: ");
         scanf("%u", &choice);
         switch (choice) {
             case 0:
-                puts("\t0. Print the array of grades (printArray)");
+            puts("--------------------------------- Students & Grades");
+                printArray(students, exams, grades);
+            puts("---------------------------------");
                 break;
             case 1:
-                puts("\t1. Find the minimum grade (minimum)");
+                minimum(students, exams, grades);
                 break;
             case 2:
-                puts("\t2. Find the maximum grade (maximum)");
+                maximum(students, exams, grades);
                 break;
             case 3:
-                puts("\t3. Print the average on all tests for each student (average)");
+                average(students, exams, grades);
                 break;
-            case -1:
-                puts("\t-1. End Program");
+            case 4:
+                puts("Im die, thank you forever");
                 exit(0);
             default:
-                puts("Please enter a valid number (0 - 3)");
+                puts("> Please enter a valid number (0 - 3)");
                 break;
         }
     }
@@ -88,8 +96,9 @@ int main()
 void printArray(int students, int exams, int grades[students][exams]){
     for (size_t i = 0; i < students; i++) {
         for (size_t j = 0; j < exams; j++) {
-            printf("Student %u, Exam %u grade: %u", i, j, grades[i][j]);
+            printf("Student %u, Exam %u grade: %u ", i, j, grades[i][j]);
         }
+        puts("");
     }
 }
 
