@@ -2,7 +2,7 @@
 Name: Andrew Huang
 Date: 9/30/2024
 Course: CSI2107 
-HW#: Lab 05: ““Arrays of Pointers to Functions” 
+HW#: Lab 06: ““Arrays of Pointers to Functions” 
 
 Objective: To design and implement array of function pointer. 
 
