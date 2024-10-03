@@ -44,14 +44,14 @@ int main()
         }
     }
 
-    for (size_t i = 0; i < students; i++) {
-        for (size_t j = 0; j < exams; j++) {
-            printf("%u ", grades[i][j]);
-        }
-        puts("");
-    }
+    // for (size_t i = 0; i < students; i++) {
+    //     for (size_t j = 0; j < exams; j++) {
+    //         printf("%u ", grades[i][j]);
+    //     }
+    //     puts("");
+    // }
 
-    void (*processGrades[4])(int, int, int[][exams]) = {printArray, minimum, maximum, average};
+    void (*processGrades[4])(int, int, int[students][exams]) = {printArray, minimum, maximum, average};
 
     int choice = 0;
 
@@ -64,39 +64,55 @@ int main()
         puts("\t4. End Program");
         printf("Enter here: ");
         scanf("%u", &choice);
-        switch (choice) {
-            case 0:
-            puts("--------------------------------- Students & Grades");
-                printArray(students, exams, grades);
+
+        puts("---------------------------------");
+        if (choice == 4) exit(0);
+        else if (choice < 0 || choice > 4) {
+            puts("> Please enter a valild number");
             puts("---------------------------------");
-                break;
-            case 1:
-                minimum(students, exams, grades);
-                break;
-            case 2:
-                maximum(students, exams, grades);
-                break;
-            case 3:
-                average(students, exams, grades);
-                break;
-            case 4:
-                puts("Im die, thank you forever");
-                exit(0);
-            default:
-                puts("> Please enter a valid number (0 - 3)");
-                break;
+            continue;
         }
+
+        processGrades[choice](students, exams, grades);
+        puts("---------------------------------");
+
+        // switch (choice) {
+        //     case 0:
+        //     puts("--------------------------------- Students & Grades");
+        //         processGrades[0](students, exams, grades);
+        //     puts("---------------------------------");
+        //         break;
+        //     case 1:
+        //         processGrades[1](students, exams, grades);
+        //         break;
+        //     case 2:
+        //         processGrades[2](students, exams, grades);
+        //         break;
+        //     case 3:
+        //         processGrades[3](students, exams, grades);
+        //         break;
+        //     case 4:
+        //         puts("Im die, thank you forever");
+        //         exit(0);
+        //     default:
+        //         puts("> Please enter a valid number (0 - 3)");
+        //         break;
+        // }
     }
-
-
 
     return 0;
 }
 
 void printArray(int students, int exams, int grades[students][exams]){
+    printf("Exams \t ");
+    for (int i = 0; i < exams; i++) {
+        printf("%u ", i);
+    }
+    printf("\n");
     for (size_t i = 0; i < students; i++) {
+        printf("Student %u: ", i);
         for (size_t j = 0; j < exams; j++) {
-            printf("Student %u, Exam %u grade: %u ", i, j, grades[i][j]);
+            printf("%u ", grades[i][j]);
         }
         puts("");
     }
