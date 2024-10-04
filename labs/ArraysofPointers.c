@@ -103,22 +103,27 @@ int main()
     return 0;
 }
 
-void printArray(int students, int exams, int grades[students][exams]){
-    printf("Exams \t ");
-    for (int i = 0; i < exams; i++) {
-        printf("%u ", i);
+void printArray(int students, int exams, int grades[students][exams]) {
+    printf("%-15s", "Exams");
+    for (size_t k = 0; k < exams; k++) {
+        printf("%-5zu", k);
     }
-    printf("\n");
+    puts("");
+
     for (size_t i = 0; i < students; i++) {
-        printf("Student %u: ", i);
+        printf("Student %zu: ", i);
         for (size_t j = 0; j < exams; j++) {
-            printf("%u ", grades[i][j]);
+            printf("%5d", grades[i][j]);
         }
         puts("");
     }
 }
 
-void minimum(int students, int exams, int grades[students][exams]){
+void minimum(int students, int exams, int grades[students][exams]) {
+    unsigned int mini = 100;
+    for (size_t i = 0; i < students; i++) {
+        for (size_t j = 0; j < )
+    }
 }
 
 void maximum(int students, int exams, int grades[students][exams]){
