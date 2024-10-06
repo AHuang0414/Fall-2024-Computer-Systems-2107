@@ -39,8 +39,9 @@ int main()
     {
         for (size_t j = 0; j < exams; j++)
         {
-            printf("Enter grade for student [%d], exam [%d]: ", i + 1, j + 1);
+            printf("Enter grade for student [%d], exam [%d]: ", i, j);
             scanf("%d", &grades[i][j]);
+            if (grades[i][j] < 0 | grades[i][j] > 100) j--; //check if its negative or over 100, then ask again
         }
     }
 
@@ -55,6 +56,7 @@ int main()
 
     int choice = 0;
 
+    puts("");
     while (choice != 4) {
         puts("Enter number (0 - 3) for the following options and 4 to quit: ");
         puts("\t0. Print the array of grades (printArray)");
@@ -66,8 +68,8 @@ int main()
         scanf("%u", &choice);
 
         puts("---------------------------------");
-        if (choice == 4) exit(0);
-        else if (choice < 0 || choice > 4) {
+        if (choice == 4) exit(0); //if 4, then exit program
+        else if (choice < 0 || choice > 4) { //checks for valid input
             puts("> Please enter a valild number");
             puts("---------------------------------");
             continue;
@@ -122,12 +124,37 @@ void printArray(int students, int exams, int grades[students][exams]) {
 void minimum(int students, int exams, int grades[students][exams]) {
     unsigned int mini = 100;
     for (size_t i = 0; i < students; i++) {
-        for (size_t j = 0; j < )
+        for (size_t j = 0; j < exams; j++) {
+            if (grades[i][j] < mini) mini = grades[i][j];
+        }
     }
+    printf("%s%u\n","Lowest Grade: ", mini);
 }
 
 void maximum(int students, int exams, int grades[students][exams]){
+    unsigned int max = 0;
+    for (size_t i = 0; i < students; i++) {
+        for (size_t j = 0; j < exams; j++) {
+            if (grades[i][j] > max) max = grades[i][j];
+        }
+    }
+    printf("%s%u\n","Highest Grade: ", max);
 }
 
 void average(int students, int exams, int grades[students][exams]){
+    float averageScores[students];
+    for (size_t i = 0; i < students; i++) {
+        float currentStudentAvg = 0;
+        for (size_t j = 0; j < exams; j++) {
+            currentStudentAvg += grades[i][j];
+        }
+        averageScores[i] = (currentStudentAvg/exams);
+    }
+    
+    puts("Student Averages");
+
+    for (int i = 0; i < students; i++) {
+        printf("%s%d%s%.2f","Student ", i, ": ", averageScores[i]);
+        puts("");
+    }
 }
