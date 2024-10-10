@@ -13,7 +13,7 @@ Lab 07: Race
 #include <stdlib.h>
 #include <unistd.h>
 #include <time.h>
-#include <windows.h>
+// #include <windows.h> // I thought this would work but linux doesn't have this
 
 #define RAND_MIN 1
 #define RAND_MAX 10
@@ -40,7 +40,7 @@ int main(){
 
     while(hPos != 70 && tPos !=70){
         // sleep(1);						//slows down the race
-        Sleep(10);
+        // Sleep(10); //Using windows ver
         hareMove(&hPos);
         tortMove(&tPos);
         printRace(&hPos,&tPos);
