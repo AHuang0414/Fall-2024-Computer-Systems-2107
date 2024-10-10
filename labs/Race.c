@@ -1,16 +1,13 @@
 /*
-
 Name: Andrew Huang
 Date: 10/7/2024
 Course: CIS 2107 
 Lab 07: Race
 
-
 //The purpose of this program is to simulate and display the race between the tortoise and the hare using a random number
 //generator and preset move types. The animal positions are accessed and modified using pointers, and the display is
 //controlled using the sleep() function. Sometimes it takes a while due to slippage.
 */
-
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,7 +22,7 @@ int randomNumberGenerator();
 void tortMove(int *tPtr);
 void hareMove(int *hPtr);
 void printRace(int *hPos,int *tPos);
-int minPos(int hMin, int tMin);
+// int minPos(int hMin, int tMin);
 
 int main(){
     srand((unsigned)time(NULL));
@@ -43,7 +40,7 @@ int main(){
 
     while(hPos != 70 && tPos !=70){
         // sleep(1);						//slows down the race
-        Sleep(100);
+        Sleep(10);
         hareMove(&hPos);
         tortMove(&tPos);
         printRace(&hPos,&tPos);
@@ -53,9 +50,8 @@ int main(){
 }
 
 //Finds minimum of hare or tortoise position to decide which position to print first
-int minPos(int hMin, int tMin){ //Not too sure what I was suppose to usew this for
-    
-}
+// int minPos(int hMin, int tMin){ //Not too sure what I was suppose to use this for
+// }
 
 //Prints the position of the H and T
 void printRace(int *hPos,int *tPos){
@@ -65,8 +61,8 @@ void printRace(int *hPos,int *tPos){
     if (*tPos < 1) *tPos = 1;
     else if (*tPos >= 70) *tPos = 70;
 
-    printf("Hare Pos: %d\n", *hPos);
-    printf("Turtle Pos: %d\n", *tPos);
+    // printf("Hare Pos: %d\n", *hPos); //just making sure they moving
+    // printf("Turtle Pos: %d\n", *tPos);
 
     for (int i = 1; i <= 70; i++) {
         if (i == *tPos && i == *hPos) {
@@ -79,7 +75,7 @@ void printRace(int *hPos,int *tPos){
             printf("H");
         }
         else {
-            printf("_");
+            printf(" ");
         }
     }
 
@@ -169,5 +165,5 @@ void hareMove(int *hPtr){
 
 //Generates random number from 1-10
 int randomNumberGenerator(){
-    return rand() % (RAND_MAX)+ RAND_MIN;
+    return rand() % RAND_MAX + RAND_MIN;
 }
