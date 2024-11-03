@@ -1,7 +1,7 @@
 /*
  * Name:	Andrew Huang
  * Section:	03
- * Lab:  	CIS2107_Lab08_Manual 
+ * Lab:  	CIS2107_Lab09_Manual 
  * Goal: 	To design and implement functions taking pointers as arguments 
 			to process characters and strings.
  */
@@ -57,14 +57,18 @@ int main() {
     //test for randomize
     randomize();
 
+    puts("\n");
     //test for tokenize number
     char str[] = "(267) 436-6281";
     tokenizeTelNum(str);
 
+    puts("\n");
     //test for reverse
     char line[] = "Hello world";
+    // printf("%d", strlen(line));
     reverse(line);
 
+    puts("\n");
     //test for countSubstr
     char *line1 = "helloworldworld";
     char *substring = "world";
@@ -190,39 +194,135 @@ void randomize(void) {
 
 //7.(Tokenizing Telephone Numbers) 
 int tokenizeTelNum(char *num) {
-    char *strNum = "";
-    for (int i = 0; i < strlen(num); i++) {
-        if (!isdigit(*(num + i))) {
-            continue;
+    // char strNum[12] = ""; // 10 + 1 (for the '\0')
+    // for (int i = 0; i < strlen(num); i++) {
+    //     char curNum = *(num + i);
+    //     // printf("current char: %c\n", curNum);
+    //     if (!isdigit(curNum)) {
+    //         // printf("%c is not a char\n", curNum);
+    //         continue;
+    //     }
+    //     // printf("current char: %c\n", curNum);
+    //     char temp[2] = {curNum, '\0'};
+    //     strcat(strNum, temp);
+    // }
+    // printf("Phone Number: %s", strNum);
+    
+    char strNum[12] = "";
+    char *token = strtok(num, "()- ");
+    int counter = 0;
+    while (token != NULL) {
+        // printf("Token Piece: %s\n", token);
+        for (int i = 0; i < strlen(token); i++) {
+            if (isdigit(token[i])) { 
+                char temp[2] = {token[i], '\0'};
+                strcat(strNum, temp); 
+            }
         }
-        strcat(strNum, *(num + i));
+        counter++;
+        if (counter == 1) strcat(strNum, " ");
+
+        token = strtok(NULL, "()- "); // Get the next token
     }
-    printf("%s", strNum);
+    printf("Phone Number: %s", strNum);
+
+    return 0;
 }
 
 //8.(Displaying a Sentence with Its Words Reversed) 
 void reverse(char *text) {
+    // printf("length of text: %d\n", strlen(text));
+    int lengthOfReverse = strlen(text);
+    char copyText[lengthOfReverse+1];
+    strcpy(copyText, text);
+    // printf("Copied: %s\n", copyText);
+    char *tokText = strtok(text, " ");
+    int tokPartsCount = 0;
     
+    while (tokText != NULL) { 
+        // printf("Text Line: %s\n", tokText);
+        // printf("length %d\n", strlen(tokText));
+        tokPartsCount++;
+        tokText = strtok(NULL, " ");
+    }
 
+    // printf("Num of tok parts: %d", tokPartsCount);
+    char *tokArr[tokPartsCount];
+    int arrCounter = 0;
+    char *tokTextCopy = strtok(copyText, " ");
+    
+    while (tokTextCopy != NULL) {
+        // printf("Text Line: %s\n", tokTextCopy);
+        tokArr[arrCounter] = tokTextCopy; 
+        // printf("array of pos %d is %s\n", arrCounter, tokArr[arrCounter]);
+        arrCounter++;
+        tokTextCopy = strtok(NULL, " ");
+    }
+
+    // printf("length of text: %d\n", strlen(text));
+    char reverseStr[lengthOfReverse + 1]; // + 1 to ensure it has space for '/0'
+    reverseStr[0] = '\0';
+
+    for (int i = arrCounter-1; i >= 0; i--) {
+        strcat(reverseStr, tokArr[i]);
+        if (i > 0) strcat(reverseStr, " ");
+    }
+
+    printf("Reversed String: %s", reverseStr);
 }
 
 //9.(Counting the Occurrences of a Substring) 
 int countSubstr (char * line, char * sub) {
-  
-  
+    int count = 0;
+    char *occur = strstr(line, sub);
+    int subLength = strlen(sub);
+    // printf("Sub %d\n", subLength);
+    // printf("Substring is: [%s]\n", occur);
+
+    int subPos = 0;
+    for (int i = 0; i < strlen(occur); i++) {
+        // printf("subPos: %d\n", subPos);
+        if (occur[i] == sub[subPos]) {
+            subPos++;
+        }
+        else {
+            subPos = 0;
+        }
+        if (subPos == subLength) {
+            count++;
+            subPos = 0;
+        } 
+    }
+
+    return count;
 }
 
 //10.(Counting the Occurrences of a Character) 
 int countChar (char *line, char c) {
-  
-  
+    int count = 0;
+    // for (int i = 0; i < strlen(line); i++) {
+    //     if (c == line[i]) count++;
+    // }
+
+    char *occur = strchr(line, c);
+
+    while (occur != NULL) {
+        count++;
+        occur = strchr(occur + 1, c);
+    }
+
+    return count;
 }
 
 
 //11.(Counting the Letters of the Alphabet in a String) 
 void countAlpha(char *string) {
- 
- 
+    char alphabet[] = {
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+        'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
+        'U', 'V', 'W', 'X', 'Y', 'Z'
+    };
+
 }
 
 //12.(Counting the Number of Words in a String) 
