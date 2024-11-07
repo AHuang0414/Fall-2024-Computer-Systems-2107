@@ -27,8 +27,8 @@ int countSubstr (char * line, char * sub);
 int countChar (char * line, char c);
 int countWords(char *string);
 void countAlpha(char *string);
-void startsWithB(char *string[]);
-void endsWithed(char *string[]);
+void startsWithB(char *string[], int size);
+void endsWithed(char *string[], int size);
 
 int main() {
 
@@ -68,7 +68,7 @@ int main() {
     // printf("%d", strlen(line));
     reverse(line);
 
-    puts("\n");
+    puts("");
     //test for countSubstr
     char *line1 = "helloworldworld";
     char *substring = "world";
@@ -78,6 +78,7 @@ int main() {
     char w = 'w';
     printf("\nNumber of character %c inside %s: %d\n", w, line1, countChar(line1, w));
 
+    puts("\n");
     //test for countAlpha
     char str1[] = "Hello it's me.";
     countAlpha(str1);
@@ -86,13 +87,15 @@ int main() {
     char countstring[] = "hello world!";
     printf("\n\nNumber of words in string is: %d\n", countWords(countstring));
 
+    puts("\n");
     //test for startsWithB
     char *series[] = {"bored", "hello", "Brother", "manual", "bothered"};
-    startsWithB(series);
+    int size = sizeof(series) / sizeof(series[0]);
+    startsWithB(series, size);
 
+    puts("\n");
     //test for endsWithed
-    endsWithed(series);
-
+    endsWithed(series, size);
 }
 
 // 1.(Displaying Strings in Uppercase and Lowercase) 
@@ -317,29 +320,92 @@ int countChar (char *line, char c) {
 
 //11.(Counting the Letters of the Alphabet in a String) 
 void countAlpha(char *string) {
+    // printf("%s\n", string);
+    char upedString[strlen(string) + 1];
+    
+    int j = 0;
+    for (int i = 0; string[i] != '\0'; i++) {
+        if (isalpha(string[i])) {  
+            upedString[j++] = toupper(string[i]); 
+        }
+    }
+
+    upedString[j] = '\0';  
+    // printf("%s\n", upedString);
+
     char alphabet[] = {
         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
         'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T',
         'U', 'V', 'W', 'X', 'Y', 'Z'
     };
 
+    int num[sizeof(alphabet)/sizeof(alphabet[0])]; 
+
+    for (int i = 0; i < sizeof(alphabet) / sizeof(alphabet[0]); i++) {
+        num[i] = countChar(upedString, alphabet[i]);
+        if (num[i] == 0) continue;
+        printf("%c | %c : %d\n", alphabet[i], tolower(alphabet[i]), num[i]);    
+    }
+
 }
 
 //12.(Counting the Number of Words in a String) 
 int countWords(char *string) {
-   
-   
+    int count = 0;
+
+    char *tokenCountString = strtok(string, " \n");
+
+    while (tokenCountString != NULL) {
+        // printf("%s \n", tokenCountString);
+        count++;
+        tokenCountString = strtok(NULL, " \n");
+    }
+
+    return count;
 }
 
 //13.(Strings Starting with "b") 
-void startsWithB(char *string[]) {
+void startsWithB(char *string[], int size) {
+    // printf("Number of strings: %d\n", size);
+    // printf("Number of strings: %d\n", sizeof(string)+1); // + 1 b/c index starts at 0
 
- 
+    printf("Words beginning with B: \n");
+    // int i = 0;
+    // while (string[i] != NULL) {
+    //     // printf("Length of string index [%d]: %lu\n", i, strlen(string[i]));
+    //     int j = 0;
+        
+    //     if (string[i][j] == 'b' || string[i][j] == 'B') {
+    //         while (string[i][j] != '\0') {
+    //             printf("%2c", string[i][j]); // print char
+    //             j++;
+    //         }
+    //     }
+
+    //     puts("");
+    //     i++;
+    // }
+
+    for (int i = 0; i < size; i++) {
+        if (string[i][0] == 'b' || string[i][0] == 'B') {
+            printf("    %s\n", string[i]); 
+        }
+    }
 
 }
 
 //14.(Strings Ending with "ed") 
-void endsWithed(char *string[]) {
+void endsWithed(char *string[], int size) {
+    
+    printf("Words ending with ed: \n");
+    for (int i = 0; i < size; i++) {
+        int j = strlen(string[i]);
+        if (j < 2) continue;
+        
+        if (toupper(string[i][j-2]) == 'E' && toupper(string[i][j-1]) == 'D') {
+            printf("    %s\n", string[i]);
+        }
 
+    }
 
 }
