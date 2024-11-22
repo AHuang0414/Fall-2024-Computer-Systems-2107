@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "d:/GitHubRepos/Fall-2024-Computer-Systems-2107",
-      "program": "d:/GitHubRepos/Fall-2024-Computer-Systems-2107/build/Debug/outDebug",
+      "cwd": "d:/GitHubRepos/Fall-2024-Computer-Systems-2107/lab_10",
+      "program": "d:/GitHubRepos/Fall-2024-Computer-Systems-2107/lab_10/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
