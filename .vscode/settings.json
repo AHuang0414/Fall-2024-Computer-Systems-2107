@@ -59,6 +59,8 @@
   "files.associations": {
     "stdio.h": "c",
     "string.h": "c",
-    "memory.h": "c"
+    "memory.h": "c",
+    "type_traits": "c",
+    "mylib.h": "c"
   }
 }
