@@ -3,18 +3,25 @@
 #include <stdlib.h>
 
 int main() {
+    puts("START----------------");
+    printf("\n");
+    puts("1.");
     // Testing all_letters
     printf("all_letters(\"Hello World\"): %d\n", all_letters("Hello World")); //  1
     printf("all_letters(\"He11o World\"): %d\n", all_letters("He11o World")); //  0
 
     puts("");
-
-    // Testing num_in_range
+    printf("\n");
+    
+    puts("2.");
+    // Testing num_in_range 
     printf("num_in_range(\"abcdef\", 'b', 'e'): %d\n", num_in_range("abcdef", 'b', 'e')); //  4
     printf("num_in_range(\"Yellow\", 'f', 'm'): %d\n", num_in_range("Yellow", 'f', 'm')); //  2
 
     puts("");
+    printf("\n");
 
+    puts("3.");
     // Testing diff
     printf("diff(\"hello\", \"hello\"): %d\n", diff("hello", "hello"));  //  0
     printf("diff(\"hello\", \"hella\"): %d\n", diff("hello", "hella"));  //  1
@@ -23,7 +30,9 @@ int main() {
     printf("diff(\"Book\", \"Back\"): %d\n", diff("Book", "Back"));  //  2
 
     puts("");
+    printf("\n");
     
+    puts("4.");
     // Testing shorten
     printf("shorten(\"Programming\", 7): ");
     shorten("Programming", 7); // Expected: "Program"
@@ -42,13 +51,17 @@ int main() {
     puts("");
 
     puts("");
+    printf("\n");
 
+    puts("5.");
     // Testing len_diff
     printf("len_diff(\"Philadelphia\", \"Hello\"): %d\n", len_diff("Philadelphia", "Hello")); // Expected: 7
     printf("len_diff(\"Program\", \"Code\"): %d\n", len_diff("Program", "Code")); // Expected: 3
 
     puts("");
+    printf("\n");
 
+    puts("6.");
     // Testing rm_left_space
     printf("rm_left_space(\"   Leading spaces\"): ");
     rm_left_space("   Leading spaces"); // Expected: "Leading spaces"
@@ -67,7 +80,9 @@ int main() {
     puts("");
 
     puts("");
+    printf("\n");
 
+    puts("7.");
     // Testing rm_right_space
     printf("rm_right_space(\"Hello \"): ");
     rm_right_space("Hello "); // Expected: "Hello"
@@ -78,7 +93,9 @@ int main() {
     puts("");
 
     puts("");
-
+    printf("\n");
+    
+    puts("8.");
     // Testing rm_space
     printf("rm_space(\" Hello \"): ");
     rm_space(" Hello "); // Expected: "Hello"
@@ -89,14 +106,18 @@ int main() {
     puts("");
 
     puts("");
+    printf("\n");
 
+    puts("9.");
     // Testing find
     printf("find(\"Hello\", \"l\"): %d\n", find("Hello", "l")); // Expected: 2
     printf("find(\"Hello\", \"q\"): %d\n", find("Hello", "q")); // Expected: -1
     printf("find(\"Mississippi\", \"iss\"): %d\n", find("Mississippi", "iss")); // Expected: 1
 
     puts("");
+    printf("\n");
 
+    puts("10.");
     // Testing ptr_to
     char *result = ptr_to("Hello", "l");
     printf("ptr_to(\"Hello\", \"l\"): %s\n", result ? result : "NULL"); // Expected: "llo"
@@ -105,21 +126,27 @@ int main() {
     printf("ptr_to(\"Hello\", \"q\"): %s\n", result ? result : "NULL"); // Expected: NULL
 
     puts("");
+    printf("\n");
 
+    puts("11.");
     // Testing is_empty
     printf("is_empty(\" \"): %d\n", is_empty(" "));  // Expected: 1 (Only whitespace)
     printf("is_empty(\"Hello\"): %d\n", is_empty("Hello"));  // Expected: 0 (Non-empty string)
     printf("is_empty(NULL): %d\n", is_empty(NULL));  // Expected: 1 (NULL string)
 
     puts("");
+    printf("\n");
 
+    puts("12.");
     // Testing str_zip
     printf("str_zip(\"Temple\", \"Hello\"): %s\n", str_zip("Temple", "Hello")); // Expected: "THeemlplloe"
     printf("str_zip(\"Spongebob\", \"Patrick\"): %s\n", str_zip("Spongebob", "Patrick")); // Expected: "SPpaotnrgiecbkob"
     printf("str_zip(\"abc\", \"123\"): %s\n", str_zip("abc", "123")); // Expected: "a1b2c3"
 
     puts("");
+    printf("\n");
 
+    puts("13.");
     // Testing capitalize
     printf("capitalize(\"hello world\"): ");
     capitalize("hello world"); // Expected: "Hello World"
@@ -138,14 +165,18 @@ int main() {
     puts(""); 
 
     puts(""); 
+    printf("\n");
 
+    puts("14.");
     // Testing strcmp_ign_case
     printf("strcmp_ign_case(\"hello\", \"goodbye\"): %d\n", strcmp_ign_case("hello", "goodbye")); // Expected: positive (e.g., 1)
     printf("strcmp_ign_case(\"Hello\", \"hello\"): %d\n", strcmp_ign_case("Hello", "hello"));     // Expected: 0
     printf("strcmp_ign_case(\"apple\", \"zebra\"): %d\n", strcmp_ign_case("apple", "zebra"));     // Expected: negative (e.g., -1)
 
     puts("");
+    printf("\n");
 
+    puts("15.");
     // Testing take_last
     char test1[] = "hello"; 
     char test2[] = "hello";
@@ -161,7 +192,9 @@ int main() {
     printf("take_last(\"Brubeck\", 5): %s\n", test4); // Expected: "ubeck"
 
     puts("");
+    printf("\n");
 
+    puts("16.");
     // Testing dedup
     char *ded1 = dedup("hello");
     printf("dedup(\"hello\"): %s\n", ded1); // Expected: "helo"
@@ -176,7 +209,9 @@ int main() {
     free(ded3);
 
     puts("");
+    printf("\n");
 
+    puts("17.");
     // Testing pad
     char *padded1 = pad("hello", 6);
     printf("pad(\"hello\", 6): \"%s\"\n", padded1); // Expected: "hello "
@@ -195,14 +230,18 @@ int main() {
     free(padded4);
 
     puts("");
+    printf("\n");
 
+    puts("18.");
     // Testing ends_with_ignore_case
     printf("ends_with_ignore_case(\"Coding\", \"ing\"): %d\n", ends_with_ignore_case("Coding", "ing")); // Expected: 1
     printf("ends_with_ignore_case(\"Coding\", \"ed\"): %d\n", ends_with_ignore_case("Coding", "ed"));   // Expected: 0
     printf("ends_with_ignore_case(\"ELON MUSK\", \"sk\"): %d\n", ends_with_ignore_case("ELON MUSK", "sk")); // Expected: 1
 
     puts("");
+    printf("\n");
 
+    puts("19.");
     // Testing repeat
     char *repeat1 = repeat("hello", 3, '-');
     printf("repeat(\"hello\", 3, '-'): %s\n", repeat1);  // Expected: "hello-hello-hello"
@@ -217,8 +256,94 @@ int main() {
     free(repeat3);
 
     puts("");
+    printf("\n");
 
-    
+    puts("20.");
+    // Testing replace
+    char *replace1 = replace("Steph is the X", "X", "best");
+    printf("replace(\"Steph is the X\", \"X\", \"best\"): %s\n", replace1); // Expected: "Steph is the best"
+    free(replace1); 
+
+    char *replace2 = replace("NBA X rocks X", "X", "game");
+    printf("replace(\"NBA X rocks X\", \"X\", \"game\"): %s\n", replace2); // Expected: "NBA game rocks game"
+    free(replace2); 
+
+    char *replace3 = replace("I love coding and coding is fun", "coding", "code");
+    printf("replace(\"I love coding and coding is fun\", \"coding\", \"code\"): %s\n", replace3); // Expected: "I love code and code is fun"
+    free(replace3);
+
+    char *replace4 = replace("Life is great", "is", "awesome");
+    printf("replace(\"Life is great\", \"is\", \"awesome\"): %s\n", replace4); // Expected: "Life awesome great"
+    free(replace4);
+
+    puts("");
+    printf("\n");
+
+    puts("21.");
+    // Testing str_connect
+    char *str_connect1 = str_connect((char *[]){"Hello", "world", "Hello", "world"}, 4, '-');
+    printf("str_connect({\"Hello\", \"world\", \"Hello\", \"world\"}, 4, '-'): %s\n", str_connect1); // Expected: "Hello-world-Hello-world"
+    free(str_connect1);
+
+    char *str_connect2 = str_connect((char *[]){"Washington", "Adams", "Jefferson"}, 3, '+');
+    printf("str_connect({\"Washington\", \"Adams\", \"Jefferson\"}, 3, '+'): %s\n", str_connect2); // Expected: "Washington+Adams+Jefferson"
+    free(str_connect2);
+
+    char *str_connect3 = str_connect((char *[]){"Apple", "Banana", "Cherry", "Date", "Elderberry", "Fig"}, 3, ',');
+    printf("str_connect({\"Apple\", \"Banana\", \"Cherry\", \"Date\", \"Elderberry\", \"Fig\"}, 3, ','): %s\n", str_connect3); // Expected: "Apple,Banana,Cherry"
+    free(str_connect3);
+
+    puts("");
+    printf("\n");
+
+    puts("22.");
+    // Testing rm_empties
+    char *rm_empties1[] = {"Hello", "World", "", "", "Steph", NULL};
+    printf("rm_empties({\"Hello\", \"World\", \"\", \"\", \"Steph\"}): ");
+    rm_empties(rm_empties1);
+    puts("");
+
+    char *rm_empties2[] = {"One", "", "Two", "", "", "Three", NULL};
+    printf("rm_empties({\"One\", \"\", \"Two\", \"\", \"\", \"Three\"}): ");
+    rm_empties(rm_empties2);
+    puts("");
+
+    char *rm_empties3[] = {"", "Alpha", "Beta", "", "", "Gamma", NULL};
+    printf("rm_empties({\"\", \"Alpha\", \"Beta\", \"\", \"\", \"Gamma\"}): ");
+    rm_empties(rm_empties3);
+    puts("");
+
+    puts("");
+    printf("\n");
+
+    puts("23.");
+    // Testing str_chop_all
+    char **str_chop_all1 = str_chop_all("Hello/world/hello/world", '/');
+    printf("str_chop_all(\"Hello/world/hello/world\", '/'): ");
+    for (int i = 0; str_chop_all1[i] != NULL; i++) {
+        printf("%s ", str_chop_all1[i]);
+    }
+    free(str_chop_all1);
+    puts("");
+
+    char **str_chop_all2 = str_chop_all("I am ready for a nice vacation", ' ');
+    printf("str_chop_all(\"I am ready for a nice vacation\", ' '): ");
+    for (int i = 0; str_chop_all2[i] != NULL; i++) {
+        printf("%s ", str_chop_all2[i]);
+    }
+    free(str_chop_all2);
+    puts("");
+
+    char **str_chop_all3 = str_chop_all("Split.this.string.into.tokens", '.');
+    printf("str_chop_all(\"Split.this.string.into.tokens\", '.'): ");
+    for (int i = 0; str_chop_all3[i] != NULL; i++) {
+        printf("%s ", str_chop_all3[i]);
+    }
+    free(str_chop_all3);
+    puts("");
+
+    printf("\n");
+    puts("FIN----------------");
 
     return 0;
 }

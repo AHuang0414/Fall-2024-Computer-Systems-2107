@@ -304,7 +304,6 @@ char *dedup(char *s) {
     while (s[index] != '\0') {
         bool isDupe = false; 
 
-        // Check if the current character exists in newStr
         for (int i = 0; i < newIndex; i++) {
             if (newStr[i] == s[index]) {
                 isDupe = true;
@@ -392,6 +391,142 @@ char *repeat(char *s, int x, char sep) {
 }
 
 char *replace(char *s, char *pat, char *rep) {
-    
+    int OG_LENGTH = 0, PAT_LENGTH = 0, REP_LENGTH = 0;
+    while (s[OG_LENGTH] != '\0') OG_LENGTH++;
+    while (rep[REP_LENGTH] != '\0') REP_LENGTH++;
+    while (pat[PAT_LENGTH] != '\0') PAT_LENGTH++;
+
+    int patCount = 0;
+    for (int i = 0; s[i] != '\0'; i++) {
+        bool isPat = true;
+        if (toupper(pat[0]) == toupper(s[i])) {
+            for (int j = 0; j < PAT_LENGTH; j++) {
+                if (toupper(pat[j]) != toupper(s[j + i])) {
+                    isPat = false;
+                    break;
+                }
+            }
+            if (isPat) {
+                patCount++;
+            }
+        }
+    }
+
+    int TOTAL_LENGTH = OG_LENGTH - (patCount * PAT_LENGTH) + (patCount * REP_LENGTH); // i.e. bobisdadis = 10, is = 2, beep = 4 (total should be 14 = bobbeepdadbeep);  10 - (2 * 2) + (2 * 4) = 10 - 4 + 8 = 14
+    char *newStr = (char*)malloc(sizeof(char) * (TOTAL_LENGTH + 1));
+    if (newStr == NULL) return NULL;
+
+    int s_index = 0, new_index = 0;
+    while (s[s_index] != '\0') {
+        bool isPat = false;
+        if (toupper(pat[0]) == toupper(s[s_index])) {
+            isPat = true;
+            for (int i = 0; i < PAT_LENGTH; i++) {
+                if (toupper(s[s_index + i]) != toupper(pat[i])) {
+                    isPat = false;
+                    break;
+                }
+            }
+        }
+        
+        if (isPat) {
+            for (int i = 0; i < REP_LENGTH; i++) {
+                newStr[new_index] = rep[i];
+                new_index++;
+            }
+            s_index += PAT_LENGTH;
+        }
+        else {
+            newStr[new_index] = s[s_index];
+            new_index++;
+            s_index++;
+        }
+
+    }
+
+    newStr[TOTAL_LENGTH] = '\0';
+
+    return newStr;
 }
 
+char *str_connect(char **strs, int n, char c) {
+    int LENGTH = 0;
+    for (int i = 0; i < n; i++) {
+        // printf("%s\n", strs[i]);
+        int tempLength = 0;
+        while (strs[i][tempLength] != '\0') {
+            LENGTH++;
+            tempLength++;
+        }
+    }
+    // printf("Length is: %d\n", LENGTH);
+    int TOTAL_LENGTH = LENGTH + (n-1);
+    // printf("Total Length is: %d\n", TOTAL_LENGTH);
+
+    char *newStr = malloc(sizeof(char) * (TOTAL_LENGTH + 1));
+    if (newStr == NULL) return NULL;
+
+    int new_index = 0;
+    for (int i = 0; i < n; i++) {
+        // printf("%s\n", strs[i]);
+        int temp_index = 0;
+        while (strs[i][temp_index] != '\0') {
+            newStr[new_index] = strs[i][temp_index];
+            temp_index++;
+            new_index++;
+        }
+        newStr[new_index] = c;
+        new_index++;
+    }
+    newStr[TOTAL_LENGTH] = '\0';
+
+    return newStr;
+}
+
+void rm_empties(char **words) {
+    int validIndex = 0;
+    for (int i = 0; words[i] != NULL; i++) {
+        if (words[i][0] != '\0') {
+            words[validIndex] = words[i];
+            validIndex++;
+        }
+    }
+
+    words[validIndex] = NULL;
+
+    for (int i = 0; words[i] != NULL; i++) {
+        printf("%s", words[i]);
+        printf(" ");
+    }
+}
+
+char **str_chop_all(char *s, char c) {
+    int countC = 1;
+    for (int i = 0; s[i] != '\0'; i++) {
+        if (s[i] == c) countC++;
+    }
+
+    char **newStr = (char **)malloc((countC * sizeof(char *)) + 1);
+    if (newStr == NULL) return NULL;
+
+    int total_index = 0;
+    for (int row = 0; row < countC; row++) {
+        int index = 0;
+        while (s[total_index] != c) {
+            index++;
+            total_index++;
+            if (s[total_index] == '\0') break;
+        }
+        newStr[row] = (char *)malloc(sizeof(char) * (index +1));
+        if (newStr[row] == NULL) return NULL;
+
+        for (int i = 0; i < index; i++) {
+            newStr[row][i] = s[total_index-index+i];
+        }
+        newStr[row][index] = '\0';
+        total_index++;
+    }
+    newStr[countC] = NULL;
+    
+    return newStr;
+}

@@ -61,6 +61,9 @@
     "string.h": "c",
     "memory.h": "c",
     "type_traits": "c",
-    "mylib.h": "c"
+    "mylib.h": "c",
+    "ctype.h": "c",
+    "stdlib.h": "c",
+    "stdbool.h": "c"
   }
 }
